@@ -197,13 +197,13 @@ redcap_fetch_records <- function(con, forms, ...) {
     forms = forms,
     ...
   )
-  redcaptargets:::try_tibble(res)
+  try_tibble(res)
 }
 
 
 redcap_fetch_meta <- function(con) {
   redcapAPI::exportMetaData(con) |>
-    redcaptargets:::try_tibble()
+    try_tibble()
 }
 
 redcap_primary_key <- function(meta) {
