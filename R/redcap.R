@@ -197,13 +197,13 @@ redcap_fetch_records <- function(con, forms, ...) {
     forms = forms,
     ...
   )
-  try_tibble(res)
+  redcaptargets:::try_tibble(res)
 }
 
 
 redcap_fetch_meta <- function(con) {
   redcapAPI::exportMetaData(con) |>
-    try_tibble()
+    redcaptargets:::try_tibble()
 }
 
 redcap_primary_key <- function(meta) {
@@ -371,7 +371,7 @@ tar_redcap <- function(name, con,
     targets::tar_target_raw(
       name = name_meta,
       command = substitute(
-        redcap_fetch_meta(con),
+        redcaptargets:::redcap_fetch_meta(con),
         env = list(con = con_sym)
       ),
       cue = cues$meta,
@@ -380,7 +380,7 @@ tar_redcap <- function(name, con,
     targets::tar_target_raw(
       name = name_record_id,
       command = substitute(
-        redcap_primary_key(meta),
+        redcaptargets:::redcap_primary_key(meta),
         env = list(meta = rlang::sym(name_meta))
       ),
       description = "REDCap Record ID"
